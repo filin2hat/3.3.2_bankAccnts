@@ -13,6 +13,10 @@ public abstract class Account {
 
     abstract void addMoney(int amount);
 
+    public String getAmount() {
+        return "БАЛАНС счета " + typeAccount + " :" + amount + ".\n";
+    }
+
 
     @Override
     public String toString() {

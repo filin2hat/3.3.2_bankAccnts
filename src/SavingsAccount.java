@@ -15,6 +15,7 @@ public class SavingsAccount extends Account {
     void transfer(Account account, int amount) {
         if (this.amount >= amount) {
             this.amount -= amount;
+            account.amount+=amount;
             System.out.println("Перевод суммы в размере " + amount + " на счет " + account +
                     ". БАЛАНС: " + this.amount + "\n");
         } else {

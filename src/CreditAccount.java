@@ -13,6 +13,7 @@ public class CreditAccount extends Account {
     @Override
     void transfer(Account account, int amount) {
         this.amount -= amount;
+        account.amount+=amount;
         System.out.println("Перевод суммы в размере " + amount + " на счет " + account +
                 ". БАЛАНС: " + this.amount + "\n");
     }
