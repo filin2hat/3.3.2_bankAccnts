@@ -1,16 +1,20 @@
 public class Main {
     public static void main(String[] args) {
-        Account savingAcc = new SavingsAccount(10000, "[cберегательный]");
-        Account checkAcc = new CheckingAccount(10000, "[расчетный]");
-        Account creditAcc = new CreditAccount(0, "[кредитный]");
 
-        System.out.println(creditAcc.getAmount());
-        System.out.println(savingAcc.getAmount());
+        Account[] accounts = new Account[]{
+                new SavingsAccount(20000, "[cберегательный]"),
+                new CheckingAccount(10000, "[расчетный]"),
+                new CreditAccount("[кредитный]")
+        };
+        Account testAccount = new SavingsAccount(3000, "[cберегательный-тестовый]");
+        Account testAccount2 = new CreditAccount( "[кредитный-тестовый]");
 
-        creditAcc.transfer(savingAcc, 52541);
+        for (Account account : accounts) {
+            account.addMoney(4000);
+            account.pay(6000);
+            account.transfer(testAccount, 3000);
+        }
 
-        System.out.println(creditAcc.getAmount());
-        System.out.println(savingAcc.getAmount());
-
+        testAccount.transfer(testAccount2, 10000);
     }
 }

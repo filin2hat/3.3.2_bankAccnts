@@ -1,20 +1,27 @@
 public abstract class Account {
-    protected int amount;
+    protected int balance;
     protected String typeAccount;
 
-    public Account(int amount, String typeAccount) {
-        this.amount = amount;
+    public Account(String typeAccount) {
         this.typeAccount = typeAccount;
     }
 
-    abstract void pay(int amount);
+    public Account(int balance, String typeAccount) {
+        this.balance = balance;
+        this.typeAccount = typeAccount;
+    }
 
-    abstract void transfer(Account account, int amount);
+    abstract boolean pay(int amount);
 
-    abstract void addMoney(int amount);
+    abstract boolean transfer(Account account, int amount);
 
-    public String getAmount() {
-        return "БАЛАНС счета " + typeAccount + " :" + amount + ".\n";
+    abstract boolean addMoney(int amount);
+
+    public void getBalance() {
+        System.out.println("БАЛАНС счета " + typeAccount + " :" + balance + ".\n");
+    }
+    public void noBalance() {
+        System.out.println("Недостаточно средств для операции.");
     }
 
 

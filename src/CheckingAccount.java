@@ -1,36 +1,44 @@
 public class CheckingAccount extends Account {
 
-    public CheckingAccount(int amount, String typeAccount) {
+    public CheckingAccount(int balance, String typeAccount) {
 
-        super(amount, typeAccount);
+        super(balance, typeAccount);
     }
 
     @Override
-    void pay(int amount) {
-        if (this.amount >= amount) {
-            this.amount -= amount;
-            System.out.println("Оплата со счета " + typeAccount + " в размере " + amount + ". \nБАЛАНС: " + this.amount + "\n");
+    boolean pay(int amount) {
+        if (balance < amount) {
+            noBalance();
+            getBalance();
+            return false;
         } else {
-            System.out.println("Не достаточно средств на счете " + typeAccount + " для оплаты. \nБАЛАНС: " + this.amount + "\n");
+            balance -= amount;
+            System.out.println("Оплата со счета " + typeAccount + " в размере " + amount + ".\n");
+            getBalance();
+            return true;
         }
     }
 
     @Override
-    void transfer(Account account, int amount) {
-        if (this.amount >= amount) {
-            this.amount -= amount;
-            account.amount+=amount;
-            System.out.println("Перевод суммы в размере " + amount + " на счет " + account +
-                    ". БАЛАНС: " + this.amount + "\n");
-        } else {
-            System.out.println("Не корректная сумма, либо недостаточно средств на счете " + typeAccount + ".\nБАЛАНС: " +
-                    this.amount + "\n");
+    boolean transfer(Account account, int amount) {
+        if (balance < amount) {
+            noBalance();
+            getBalance();
+            return false;
+        } else if (account.addMoney(amount)) {
+            balance -= amount;
+            System.out.println("Перевод суммы в размере " + amount + " на счет " + account + ".\n");
+            getBalance();
+            return true;
         }
+        return false;
     }
 
     @Override
-    void addMoney(int amount) {
-        this.amount += amount;
-        System.out.println("Счет " + typeAccount + " пополнен на " + amount + " рублей. \nБАЛАНС: " + this.amount + "\n");
+    boolean addMoney(int amount) {
+        balance += amount;
+        System.out.println("Счет " + typeAccount + " пополнен на " + amount + ".\n");
+        getBalance();
+        return true;
     }
 }
